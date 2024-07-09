@@ -1,0 +1,205 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micronutrient Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('C:\\Users\\HimanshuSetia\\Downloads\\Cover Photo.jpeg'); /* Local image path */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Micronutrients Information for Vegetarians</h1>
+        <input type="text" id="micronutrientInput" placeholder="Enter Micronutrient Name">
+        <button onclick="getMicronutrientInfo()">Get Information</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const micronutrientData = {
+            "Vitamin A": {
+                introduction: "Essential for vision, immune function, and skin health.",
+                dailyRequirement: "700-900 mcg",
+                sources: "Carrots, sweet potatoes, spinach, kale, dairy products (milk, cheese, yogurt)"
+            },
+            "Vitamin D": {
+                introduction: "Important for bone health and immune function.",
+                dailyRequirement: "600-800 IU",
+                sources: "Fortified dairy products, fortified plant milks, mushrooms exposed to sunlight"
+            },
+            "Vitamin E": {
+                introduction: "Acts as an antioxidant, protecting cells from damage.",
+                dailyRequirement: "15 mg",
+                sources: "Almonds, sunflower seeds, spinach, avocado, fortified cereals"
+            },
+            "Vitamin K": {
+                introduction: "Essential for blood clotting and bone health.",
+                dailyRequirement: "90-120 mcg",
+                sources: "Kale, spinach, broccoli, Brussels sprouts, dairy products (cheese)"
+            },
+            "Vitamin C": {
+                introduction: "Important for the immune system, skin health, and antioxidant protection.",
+                dailyRequirement: "75-90 mg",
+                sources: "Citrus fruits, strawberries, bell peppers, broccoli, Brussels sprouts"
+            },
+            "Thiamine (B1)": {
+                introduction: "Crucial for energy metabolism and nerve function.",
+                dailyRequirement: "1.1-1.2 mg",
+                sources: "Whole grains, legumes, nuts, seeds, fortified cereals"
+            },
+            "Riboflavin (B2)": {
+                introduction: "Plays a key role in energy production and cellular function.",
+                dailyRequirement: "1.1-1.3 mg",
+                sources: "Almonds, mushrooms, spinach, fortified cereals, dairy products"
+            },
+            "Niacin (B3)": {
+                introduction: "Important for energy metabolism and DNA repair.",
+                dailyRequirement: "14-16 mg",
+                sources: "Peanuts, mushrooms, brown rice, fortified cereals"
+            },
+            "Pantothenic Acid (B5)": {
+                introduction: "Vital for synthesizing coenzyme A, essential in metabolism.",
+                dailyRequirement: "5 mg",
+                sources: "Avocado, broccoli, sweet potatoes, mushrooms"
+            },
+            "Pyridoxine (B6)": {
+                introduction: "Involved in amino acid metabolism and neurotransmitter synthesis.",
+                dailyRequirement: "1.3-1.7 mg",
+                sources: "Bananas, chickpeas, potatoes, fortified cereals"
+            },
+            "Biotin (B7)": {
+                introduction: "Essential for carbohydrate and fat metabolism.",
+                dailyRequirement: "30 mcg",
+                sources: "Nuts, seeds, sweet potatoes, spinach"
+            },
+            "Folate (B9)": {
+                introduction: "Important for DNA synthesis and cell division.",
+                dailyRequirement: "400 mcg",
+                sources: "Lentils, chickpeas, spinach, fortified cereals"
+            },
+            "Cobalamin (B12)": {
+                introduction: "Necessary for red blood cell formation and neurological function.",
+                dailyRequirement: "2.4 mcg",
+                sources: "Fortified plant milks, fortified cereals, nutritional yeast"
+            },
+            "Calcium": {
+                introduction: "Essential for bone health, muscle function, and nerve signaling.",
+                dailyRequirement: "1000-1300 mg",
+                sources: "Dairy products, fortified plant milks, tofu, leafy greens"
+            },
+            "Iron": {
+                introduction: "Crucial for oxygen transport and energy production.",
+                dailyRequirement: "8-18 mg",
+                sources: "Lentils, chickpeas, tofu, spinach, fortified cereals"
+            },
+            "Magnesium": {
+                introduction: "Important for muscle and nerve function, blood sugar control, and bone health.",
+                dailyRequirement: "310-420 mg",
+                sources: "Almonds, spinach, black beans, quinoa"
+            },
+            "Phosphorus": {
+                introduction: "Vital for the formation of bones and teeth, and involved in energy metabolism.",
+                dailyRequirement: "700 mg",
+                sources: "Dairy products, lentils, nuts, seeds"
+            },
+            "Potassium": {
+                introduction: "Necessary for muscle function, nerve signaling, and fluid balance.",
+                dailyRequirement: "2600-3400 mg",
+                sources: "Bananas, sweet potatoes, spinach, avocados"
+            },
+            "Sodium": {
+                introduction: "Essential for fluid balance and nerve function.",
+                dailyRequirement: "1500-2300 mg",
+                sources: "Celery, beets, dairy products, table salt"
+            },
+            "Zinc": {
+                introduction: "Important for immune function, protein synthesis, and wound healing.",
+                dailyRequirement: "8-11 mg",
+                sources: "Chickpeas, lentils, pumpkin seeds, dairy products"
+            },
+            "Iodine": {
+                introduction: "Necessary for thyroid hormone production and metabolic regulation.",
+                dailyRequirement: "150 mcg",
+                sources: "Seaweed, iodized salt, dairy products"
+            },
+            "Selenium": {
+                introduction: "Plays a role in antioxidant defense and thyroid hormone metabolism.",
+                dailyRequirement: "55 mcg",
+                sources: "Brazil nuts, sunflower seeds, mushrooms"
+            },
+            "Copper": {
+                introduction: "Important for iron metabolism and the formation of connective tissue.",
+                dailyRequirement: "900 mcg",
+                sources: "Nuts, seeds, lentils, dark chocolate"
+            },
+            "Manganese": {
+                introduction: "Essential for bone formation, blood clotting, and reducing inflammation.",
+                dailyRequirement: "1.8-2.3 mg",
+                sources: "Nuts, seeds, whole grains, leafy greens"
+            }
+        };
+
+        function getMicronutrientInfo() {
+            const input = document.getElementById("micronutrientInput").value.trim();
+            const resultDiv = document.getElementById("result");
+            const formattedInput = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+            const micronutrient = micronutrientData[formattedInput];
+
+            if (micronutrient) {
+                resultDiv.innerHTML = `
+                    <h2>${formattedInput}</h2>
+                    <p><strong>Introduction:</strong> ${micronutrient.introduction}</p>
+                    <p><strong>Daily Requirement:</strong> ${micronutrient.dailyRequirement}</p>
+                    <p><strong>Sources:</strong> ${micronutrient.sources}</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>No information found for "${input}". Please check the spelling or try another micronutrient.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
